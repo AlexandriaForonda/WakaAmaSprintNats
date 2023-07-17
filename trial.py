@@ -1,7 +1,7 @@
 import os
 import csv
 
-for root, dirs, files in os.walk('C:\\Users\lisia\Downloads\WakaNats2018'):
+for root, dirs, files in os.walk('C:\\Users\\lisia\\Downloads\\WakaNats2017'):
 #Putting the directory 
     for file in files:
         if os.path.isfile(os.path.join(root, file)) and os.path.splitext(file)[1].endswith('.csv') and 'Final' in file:
@@ -10,12 +10,13 @@ for root, dirs, files in os.walk('C:\\Users\lisia\Downloads\WakaNats2018'):
                 first_row = next(reader)
                 position = {}
                 for row in reader:
-                #The sc
+
                     if row[0] in position.keys():
                         position[row[0]] = position[row[0]] + int(row[1])
                     else:
                         if row[0] == '1':
                             position['1'] = 8
+                            #In here I'm assigning the score by their position
                         else:
                             position[row[0]] = int(row[1])
                         if row[0] == '2':
