@@ -21,33 +21,35 @@ position_scores = {
     '': 0
 }
 
-# Define the directory path
-directory_path = r'C:\Users\lisia\Downloads\WakaNats2018'
-directory_path = r'C:\Users\lisia\Downloads\WakaNats2017'
+# Define the directory paths
+directory_path_2018 = r'C:\\lisia\OneDrive\Documents\Year 13\DTP3\WakaNats2018'
+directory_path_2017 = r'C:\\lisia\OneDrive\Documents\Year 13\DTP3\WakaNats2017'
 
 # Create a dictionary to store total scores for each name
 total_scores_by_name = {}
 
-for root, dirs, files in os.walk(directory_path):
-    for file in files:
-        if os.path.isfile(os.path.join(root, file)) and os.path.splitext(file)[1].endswith('.csv') and 'Final' in file:
-            with open(os.path.join(root, file), 'r') as f:
-                reader = csv.reader(f)
-                next(reader)  # Skip the header row
-                
-                for row in reader:
-                    position = row[0]
-                    name = row[5]
+# Process directory path for 2018
+for directory_path in [directory_path_2018, directory_path_2017]:
+    for root, dirs, files in os.walk(directory_path):
+        for file in files:
+            if os.path.isfile(os.path.join(root, file)) and os.path.splitext(file)[1].endswith('.csv') and 'Final' in file:
+                with open(os.path.join(root, file), 'r') as f:
+                    reader = csv.reader(f)
+                    next(reader)  # Skip the header row
                     
-                    if position in position_scores:
-                        score = position_scores[position]
-                    else:
-                        score = 0
-                    
-                    if name not in total_scores_by_name:
-                        total_scores_by_name[name] = 0
-                    total_scores_by_name[name] += score
+                    for row in reader:
+                        position = row[0]
+                        name = row[5]
+                        
+                        if position in position_scores:
+                            score = position_scores[position]
+                        else:
+                            score = 0
+                        
+                        if name not in total_scores_by_name:
+                            total_scores_by_name[name] = 0
+                        total_scores_by_name[name] += score
 
 # Print the total scores for each name
 for name, total_score in total_scores_by_name.items():
-result =('Total score for', name, 'is', total_score)
+    print('Total score for', name, 'is', total_score)
